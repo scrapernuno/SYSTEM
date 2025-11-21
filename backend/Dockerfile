@@ -14,4 +14,5 @@ RUN mkdir -p /app/uploads /app/output
 
 EXPOSE 8000
 
+# em Dockerfile
 ENTRYPOINT ["sh","-c","exec gunicorn --worker-tmp-dir /dev/shm app:app -b 0.0.0.0:${PORT:-8000} --workers 2 --timeout 120"]
