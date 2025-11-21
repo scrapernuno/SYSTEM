@@ -1,3 +1,5 @@
+import os
+from flask import jsonify
 from flask import Flask, request, jsonify, send_from_directory
 from pathlib import Path
 from processor import read_and_extract, aggregate_by_date_type
@@ -40,3 +42,7 @@ def outputs(fname):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
+@app.route('/__env')
+def show_env():
+    # NÃO deixar isto em produção - só para debug temporário
+    return jsonify({k: os.environ.get(k) for k in ['PORT', 'PATH', 'PYTHONPATH']})
