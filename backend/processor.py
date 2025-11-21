@@ -14,7 +14,7 @@ def clean_numeric_series(s: pd.Series) -> pd.Series:
     s = s.str.replace(r'[^\d\-,\.]', '', regex=True)
     s = s.str.replace(r'\s+', '', regex=True)
     has_comma = s.str.contains(',', regex=False)
-    has_dot = s.str.contains('.', regex=True)
+    has_dot = s.str.contains('\.', regex=True)
     s = s.where(~(has_comma & ~has_dot), s.str.replace('.', '').str.replace(',', '.'))
     s = s.str.replace(',', '.', regex=False)
     return pd.to_numeric(s, errors='coerce')
