@@ -1,13 +1,11 @@
 import pandas as pd
 from pathlib import Path
-import re
-import numpy as np
 
-IDX_DATE = 0
-IDX_DAY  = 1
-IDX_OCC  = 11
-IDX_REV  = 13
-IDX_PRICE= 14
+IDX_DATE=0
+IDX_DAY=1
+IDX_OCC=11
+IDX_REV=13
+IDX_PRICE=14
 
 def clean_numeric_series(s: pd.Series) -> pd.Series:
     s = s.astype(str).replace({'nan':'', 'None':''})
@@ -18,6 +16,7 @@ def clean_numeric_series(s: pd.Series) -> pd.Series:
     s = s.where(~(has_comma & ~has_dot), s.str.replace('.', '').str.replace(',', '.'))
     s = s.str.replace(',', '.', regex=False)
     return pd.to_numeric(s, errors='coerce')
+
 
 def read_and_extract(path):
     path = Path(path)
@@ -55,6 +54,7 @@ def read_and_extract(path):
     proc['flag_invalid_price'] = proc['avg_price'].apply(lambda x: True if pd.isna(x) or x <= 0 else False)
     proc['flag_invalid_occupancy'] = proc['occupancy_pct'].apply(lambda x: True if pd.isna(x) or (x<0) or (x>150) else False)
     return proc
+
 
 def aggregate_by_date_type(df_proc, type_name):
     df = df_proc.copy()
