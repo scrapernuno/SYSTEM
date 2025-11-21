@@ -13,4 +13,8 @@ COPY . /app
 RUN mkdir -p /app/uploads /app/output
 
 EXPOSE 8000
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8000", "--workers", "2", "--timeout", "120"]
+
+# Use PORT env var if set by the platform, default to 8000.
+# Use sh -c so the shell expands ${PORT:-8000}
+ENTRYPOINT ["sh", "-c", "exec gunicorn app:app -b 0.0.0.0:${PORT:-8000} --workers 2 --timeout 120"]
+
