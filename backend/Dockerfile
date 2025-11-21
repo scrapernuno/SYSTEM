@@ -1,5 +1,5 @@
 # backend/Dockerfile - use Python 3.10 and install required build deps
-FROM python:3.10-slim
+FROM python:3.10
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
