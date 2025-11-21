@@ -1,0 +1,1 @@
+web: gunicorn --worker-tmp-dir /dev/shm app:app -b 0.0.0.0:$PORT
